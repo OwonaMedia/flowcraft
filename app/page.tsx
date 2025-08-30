@@ -1,102 +1,159 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import { useSession } from "next-auth/react";
+import { redirect } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import { Wrench, Zap, Shield, BarChart3, MessageSquare, Users } from "lucide-react";
+
+export default function HomePage() {
+  const { data: session, status } = useSession();
+
+  // Redirect authenticated users to dashboard
+  if (session) {
+    redirect("/dashboard");
+  }
+
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+      {/* Header */}
+      <header className="border-b border-gray-200 bg-white/80 backdrop-blur-sm">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="flex h-16 items-center justify-between">
+            <div className="flex items-center space-x-2">
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-amber-600">
+                <Wrench className="h-5 w-5 text-white" />
+              </div>
+              <span className="text-xl font-bold text-gray-900">FlowCraft</span>
+            </div>
+            <Button variant="outline">
+              Anmelden
+            </Button>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+      </header>
+
+      {/* Hero Section */}
+      <section className="relative overflow-hidden py-20 sm:py-32">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
+              Das {" "}
+              <span className="bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">
+                Handwerk der Automatisierung
+              </span>
+            </h1>
+            <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-gray-600">
+              Erschaffen Sie intelligente Workflows für WhatsApp, Email und mehr - 100% DSGVO-konform, 
+              ohne Programmierkenntnisse und mit der Präzision deutscher Handwerkskunst.
+            </p>
+            <div className="mt-10 flex items-center justify-center gap-x-6">
+              <Button size="lg" className="bg-amber-600 hover:bg-amber-700">
+                <Wrench className="mr-2 h-5 w-5" />
+                Workflow starten
+              </Button>
+              <Button variant="outline" size="lg" asChild>
+                <a href="/demo">Demo testen</a>
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Features */}
+      <section className="py-20 sm:py-32">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+              Meisterhafte Automation
+            </h2>
+            <p className="mt-4 text-lg text-gray-600">
+              Die perfekte Balance zwischen deutscher Handwerkskunst und modernster Technologie
+            </p>
+          </div>
+
+          <div className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            {[
+              {
+                icon: Wrench,
+                title: "Visual Flow Builder",
+                description: "Erschaffen Sie Workflows visuell - mit der Präzision eines Meisters."
+              },
+              {
+                icon: Shield,
+                title: "100% DSGVO-konform",
+                description: "EU-Server, lokale AI, automatische PII-Filterung."
+              },
+              {
+                icon: Zap,
+                title: "Deutsche AI-Power",
+                description: "Lokale KI-Verarbeitung - Ihre Daten bleiben in Deutschland."
+              },
+              {
+                icon: MessageSquare,
+                title: "Multi-Channel Automation",
+                description: "WhatsApp, Email, SMS - alle Kanäle in einer Plattform."
+              },
+              {
+                icon: BarChart3,
+                title: "Real-time Analytics",
+                description: "Bot Performance und Customer Insights in Echtzeit."
+              },
+              {
+                icon: Users,
+                title: "Handwerk-Templates",
+                description: "Branchenspezifische Vorlagen - von Meistern für Meister."
+              }
+            ].map((feature) => (
+              <div key={feature.title} className="rounded-lg bg-white p-6 shadow-sm border border-gray-200">
+                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-amber-50">
+                  <feature.icon className="h-6 w-6 text-amber-600" />
+                </div>
+                <h3 className="mt-4 text-lg font-semibold text-gray-900">
+                  {feature.title}
+                </h3>
+                <p className="mt-2 text-gray-600">
+                  {feature.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="bg-amber-600 py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+              Bereit für Ihren ersten Workflow?
+            </h2>
+            <p className="mt-4 text-lg text-amber-100">
+              Starten Sie heute kostenlos - keine Kreditkarte erforderlich.
+            </p>
+            <div className="mt-8">
+              <Button size="lg" variant="secondary">
+                FlowCraft starten
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-gray-900 py-12">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <div className="flex items-center justify-center space-x-2">
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-amber-600">
+                <Wrench className="h-5 w-5 text-white" />
+              </div>
+              <span className="text-xl font-bold text-white">FlowCraft</span>
+            </div>
+            <p className="mt-4 text-gray-400">
+              Made with ❤️ und Cursor AI für den DACH-Markt
+            </p>
+          </div>
+        </div>
       </footer>
     </div>
   );

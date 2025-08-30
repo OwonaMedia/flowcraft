@@ -1,0 +1,117 @@
+# BotChat Pro - Cursor AI Rules
+# WhatsApp Bot SaaS Platform - Solo Development
+
+## Project Context
+This is a WhatsApp Bot SaaS platform built with Next.js 14, TypeScript, and Cursor AI.
+Target: DACH market, GDPR-compliant, no-code bot builder for SMBs.
+
+## Tech Stack
+- Frontend: Next.js 14 + TypeScript + Tailwind CSS + shadcn/ui
+- Backend: Next.js API Routes + tRPC + Prisma ORM
+- Database: PostgreSQL (Supabase EU region)
+- Auth: NextAuth.js with Google + Email
+- Payments: Stripe for subscriptions
+- WhatsApp: Business API via 360dialog (EU BSP)
+- AI: Local Phi-3-mini (GDPR-compliant) + OpenAI fallback
+
+## Code Standards
+- Use TypeScript for everything
+- Follow Next.js 14 App Router conventions
+- Use Tailwind CSS for styling
+- Implement proper error handling
+- Add JSDoc comments for complex functions
+- Use Zod for schema validation
+- Prefer composition over inheritance
+
+## File Structure
+```
+/src
+  /app
+    /api          # API routes
+    /dashboard    # Main app pages
+    /(auth)       # Auth pages
+  /components     # Reusable UI components
+  /lib           # Utilities and configurations
+  /hooks         # Custom React hooks
+  /types         # TypeScript type definitions
+```
+
+## Naming Conventions
+- Files: kebab-case (user-dashboard.tsx)
+- Components: PascalCase (UserDashboard)
+- Functions: camelCase (createBot)
+- Constants: UPPER_SNAKE_CASE (API_BASE_URL)
+- Database: snake_case (user_id, bot_flows)
+
+## Development Principles
+1. Ship fast, iterate faster
+2. Test every API endpoint
+3. Mobile-first responsive design
+4. GDPR compliance by default
+5. Type safety everywhere
+6. Performance optimized
+
+## AI Integration Guidelines
+- Always validate AI responses
+- Implement fallback for AI failures
+- Log AI usage for monitoring
+- Respect rate limits
+- Cache AI responses when possible
+
+## Security Requirements
+- Validate all user inputs
+- Sanitize data before storage
+- Use HTTPS everywhere
+- Implement rate limiting
+- Log security events
+- Follow OWASP guidelines
+
+## When generating code:
+1. Include proper TypeScript types
+2. Add error handling
+3. Follow the established patterns
+4. Comment complex logic
+5. Use consistent styling
+6. Implement loading states
+7. Add proper validation
+
+## Database Schema Patterns
+- Use UUIDs for primary keys
+- Include created_at/updated_at timestamps
+- Soft delete with deleted_at column
+- Use foreign key constraints
+- Index frequently queried columns
+
+## API Patterns
+- RESTful endpoints
+- Consistent response formats
+- Proper HTTP status codes
+- Request/response validation
+- Error handling middleware
+- Rate limiting
+
+## WhatsApp Integration
+- Handle webhook verification
+- Process incoming messages
+- Send template messages
+- Manage media uploads
+- Track message status
+- Respect WhatsApp policies
+
+## GDPR Compliance
+- Data minimization
+- Explicit consent
+- Right to deletion
+- Data portability
+- Privacy by design
+- EU data hosting
+
+## Performance
+- Optimize images automatically
+- Lazy load components
+- Cache API responses
+- Minimize bundle size
+- Use React Server Components
+- Implement proper loading states
+
+Remember: We're building for solo success - keep it simple, functional, and scalable!
