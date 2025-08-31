@@ -1,0 +1,8 @@
+set ssl:verify-certificate no
+set ftp:ssl-force false
+set ftp:ssl-allow true
+open goneo.de
+user 163544f130388 Afidi2008!
+pwd
+ls
+bye

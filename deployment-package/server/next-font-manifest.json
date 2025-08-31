@@ -1,0 +1,43 @@
+{
+  "app": {
+    "[project]/botchat-pro/app/_not-found/page": [
+      "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2"
+    ],
+    "[project]/botchat-pro/app/dashboard/analytics/page": [
+      "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2"
+    ],
+    "[project]/botchat-pro/app/dashboard/bots/[id]/edit/page": [
+      "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2"
+    ],
+    "[project]/botchat-pro/app/dashboard/bots/new/page": [
+      "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2"
+    ],
+    "[project]/botchat-pro/app/dashboard/bots/page": [
+      "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2"
+    ],
+    "[project]/botchat-pro/app/dashboard/page": [
+      "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2"
+    ],
+    "[project]/botchat-pro/app/dashboard/settings/page": [
+      "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2"
+    ],
+    "[project]/botchat-pro/app/demo/page": [
+      "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2"
+    ],
+    "[project]/botchat-pro/app/error/page": [
+      "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2"
+    ],
+    "[project]/botchat-pro/app/page": [
+      "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2"
+    ],
+    "[project]/botchat-pro/app/signin/page": [
+      "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2"
+    ],
+    "[project]/botchat-pro/app/signup/page": [
+      "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2"
+    ]
+  },
+  "appUsingSizeAdjust": true,
+  "pages": {},
+  "pagesUsingSizeAdjust": false
+}

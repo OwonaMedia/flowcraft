@@ -1,0 +1,52 @@
+# FLOWCRAFT GITHUB DEPLOYMENT - EINFACHE INSTALLATION
+# Diese Befehle auf automat.owona.de ausführen
+
+# 1. SSH-Verbindung herstellen:
+ssh root@automat.owona.de
+# Passwort: LpXqTEPurwUu
+
+# 2. FlowCraft von GitHub clonen:
+cd /var/www
+git clone https://github.com/DEIN-USERNAME/botchat-pro.git flowcraft
+cd flowcraft
+
+# 3. Production Environment erstellen:
+cat > .env.local << 'EOF'
+DATABASE_URL="postgresql://postgres:Afidi2008!@db.ddavuntesnxtyikvmkje.supabase.co:5432/postgres"
+NEXTAUTH_SECRET="botchat-pro-super-secret-key-2024"
+NEXTAUTH_URL="https://automat.owona.de"
+NEXT_PUBLIC_SUPABASE_URL="https://ddavuntesnxtyikvmkje.supabase.co"
+NEXT_PUBLIC_SUPABASE_ANON_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRkYXZ1bnRlc254dHlpa3Zta2plIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY1NzgyODgsImV4cCI6MjA3MjE1NDI4OH0.BIY4-aQZOsodKF2Nbpg0byKLDolemR96SjoVEe3GMcs"
+SUPABASE_SERVICE_ROLE_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRkYXZ1bnRlc254dHlpa3Zta2plIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1NjU3ODI4OCwiZXhwIjoyMDcyMTU0Mjg4fQ.HfBZzrvOSAbk5Nve6MZSjYkLnQ2h8un3NPiok0z8YXA"
+GDPR_MODE="true"
+NODE_ENV="production"
+EOF
+
+# 4. Dependencies installieren:
+npm ci --production
+
+# 5. Production Build:
+npm run build
+
+# 6. Prisma Setup:
+npx prisma generate
+npx prisma db push
+
+# 7. PM2 installieren und starten:
+npm install -g pm2
+pm2 start npm --name "flowcraft" -- start
+pm2 startup
+pm2 save
+
+# 8. Status prüfen:
+pm2 status
+curl -I http://localhost:3000
+
+# 9. Zukünftige Updates (sehr einfach):
+# git pull && npm ci && npm run build && pm2 restart flowcraft
+
+# VORTEILE:
+# ✅ Kein Archive-Upload nötig
+# ✅ Einfache Updates via git pull
+# ✅ Versionskontrolle
+# ✅ Automatische Dependency-Installation

@@ -1,0 +1,62 @@
+# FlowCraft Installation auf Hetzner-Server
+# Diese Befehle per SSH auf automat.owona.de ausführen
+
+# 1. FlowCraft-Verzeichnis erstellen
+mkdir -p /var/www/flowcraft
+cd /var/www/flowcraft
+
+# 2. Archive vom lokalen Rechner hochladen (separater Befehl):
+# scp flowcraft-hetzner.tar.gz root@automat.owona.de:/var/www/flowcraft/
+
+# 3. Archive entpacken
+tar -xzf flowcraft-hetzner.tar.gz
+rm flowcraft-hetzner.tar.gz
+
+# 4. Node.js Dependencies installieren
+npm ci --production
+
+# 5. Prisma Setup
+npx prisma generate
+npx prisma db push
+
+# 6. PM2 für Prozess-Management installieren (falls nicht vorhanden)
+npm install -g pm2
+
+# 7. FlowCraft mit PM2 starten
+pm2 start npm --name "flowcraft" -- start
+pm2 startup
+pm2 save
+
+# 8. Nginx Reverse Proxy konfigurieren (falls Nginx vorhanden)
+# Nginx Config für FlowCraft:
+cat > /etc/nginx/sites-available/flowcraft << 'EOF'
+server {
+    listen 80;
+    server_name owona.de;
+    
+    location / {
+        proxy_pass http://localhost:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_cache_bypass $http_upgrade;
+    }
+}
+EOF
+
+# 9. Nginx-Site aktivieren
+ln -s /etc/nginx/sites-available/flowcraft /etc/nginx/sites-enabled/
+nginx -t
+systemctl reload nginx
+
+# 10. SSL-Zertifikat mit Certbot
+certbot --nginx -d owona.de
+
+# 11. Status prüfen
+pm2 status
+curl http://localhost:3000
+systemctl status nginx

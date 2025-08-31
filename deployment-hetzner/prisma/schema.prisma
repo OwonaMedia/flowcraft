@@ -1,0 +1,279 @@
+// BotChat Pro - Database Schema
+// GDPR-compliant design with proper indexing and relationships
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// User Management
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  name          String?
+  image         String?
+  emailVerified DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  deletedAt     DateTime? // Soft delete for GDPR
+
+  // Subscription & Billing
+  subscriptionId                    String?
+  subscriptionStatus                String? // active, canceled, past_due, trialing
+  subscriptionTier                  String  @default("free") // free, starter, pro, enterprise
+  currentPlan                       String? // Current plan ID (starter, professional, enterprise)
+  subscriptionEndsAt                DateTime?
+  subscriptionCurrentPeriodStart    DateTime?
+  subscriptionCurrentPeriodEnd      DateTime?
+  stripeCustomerId                  String? @unique
+
+  // GDPR & Privacy
+  consentGiven       Boolean  @default(false)
+  consentGivenAt     DateTime?
+  marketingConsent   Boolean  @default(false)
+  dataRetentionUntil DateTime?
+
+  // Relations
+  accounts Account[]
+  sessions Session[]
+  bots     Bot[]
+  apiKeys  ApiKey[]
+
+  @@map("users")
+}
+
+// NextAuth.js required models
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@map("verification_tokens")
+}
+
+// Bot Management
+model Bot {
+  id          String    @id @default(cuid())
+  name        String
+  description String?
+  isActive    Boolean   @default(false)
+  isPublished Boolean   @default(false)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  deletedAt   DateTime? // Soft delete
+
+  // Bot Configuration
+  welcomeMessage String?
+  fallbackMessage String @default("Entschuldigung, ich habe das nicht verstanden. Können Sie das anders formulieren?")
+  
+  // WhatsApp Integration
+  whatsappPhoneId String?
+  whatsappToken   String? // Encrypted
+  isConnected     Boolean @default(false)
+  lastSyncAt      DateTime?
+
+  // AI Configuration
+  aiEnabled     Boolean @default(true)
+  aiModel       String  @default("phi3-mini")
+  aiTemperature Float   @default(0.7)
+  aiMaxTokens   Int     @default(150)
+
+  // Owner
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Relations
+  flows        BotFlow[]
+  messages     Message[]
+  analytics    BotAnalytics[]
+  templates    BotTemplate[]
+
+  @@index([userId])
+  @@index([isActive])
+  @@unique([userId, name])
+  @@map("bots")
+}
+
+// Bot Flow Builder (Visual Editor)
+model BotFlow {
+  id          String    @id @default(cuid())
+  name        String
+  description String?
+  isActive    Boolean   @default(true)
+  position    Int       @default(0) // Order in bot
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  deletedAt   DateTime?
+
+  // Flow Configuration (JSON)
+  nodes Json // React Flow nodes
+  edges Json // React Flow edges
+  
+  // Trigger Configuration
+  triggerType String @default("keyword") // keyword, intent, always
+  triggerValue String? // keyword or intent name
+  
+  // Bot relation
+  botId String
+  bot   Bot    @relation(fields: [botId], references: [id], onDelete: Cascade)
+
+  @@index([botId])
+  @@index([triggerType])
+  @@map("bot_flows")
+}
+
+// Message History (GDPR-compliant with automatic cleanup)
+model Message {
+  id        String    @id @default(cuid())
+  direction String    // incoming, outgoing
+  content   String
+  mediaUrl  String?
+  mediaType String? // image, document, audio, video
+  createdAt DateTime  @default(now())
+  deletedAt DateTime? // Auto-cleanup after retention period
+
+  // WhatsApp Metadata
+  whatsappMessageId String? @unique
+  whatsappStatus    String? // sent, delivered, read, failed
+  
+  // Contact Information (PII - auto-redacted)
+  contactPhone   String? // Hashed for privacy
+  contactName    String?
+  contactProfile String?
+
+  // Bot relation
+  botId String
+  bot   Bot    @relation(fields: [botId], references: [id], onDelete: Cascade)
+
+  @@index([botId])
+  @@index([createdAt])
+  @@index([direction])
+  @@map("messages")
+}
+
+// Analytics & Reporting
+model BotAnalytics {
+  id   String   @id @default(cuid())
+  date DateTime @default(now())
+
+  // Message Metrics
+  messagesReceived Int @default(0)
+  messagesSent     Int @default(0)
+  uniqueContacts   Int @default(0)
+
+  // Engagement Metrics
+  avgResponseTime Float? // in seconds
+  botResponseRate Float? // percentage
+  userSatisfaction Float? // rating 1-5
+
+  // Flow Metrics
+  flowsTriggered Json? // {"flow_id": count}
+  conversionsCount Int @default(0)
+
+  // Bot relation
+  botId String
+  bot   Bot    @relation(fields: [botId], references: [id], onDelete: Cascade)
+
+  @@unique([botId, date])
+  @@index([date])
+  @@map("bot_analytics")
+}
+
+// Bot Templates (for quick setup)
+model BotTemplate {
+  id          String    @id @default(cuid())
+  name        String
+  description String
+  category    String // e-commerce, support, lead-gen, appointment
+  isPublic    Boolean   @default(true)
+  usageCount  Int       @default(0)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  // Template Content
+  flows Json // Pre-built flows
+  settings Json // Recommended settings
+  
+  // Optional: Creator
+  creatorId String?
+  creator   Bot?    @relation(fields: [creatorId], references: [id])
+
+  @@index([category])
+  @@index([isPublic])
+  @@map("bot_templates")
+}
+
+// API Keys for integrations
+model ApiKey {
+  id        String    @id @default(cuid())
+  name      String
+  keyHash   String    @unique // Hashed API key
+  isActive  Boolean   @default(true)
+  lastUsed  DateTime?
+  createdAt DateTime  @default(now())
+  expiresAt DateTime?
+
+  // Permissions
+  permissions Json @default("[]") // ["read", "write", "admin"]
+
+  // Owner
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("api_keys")
+}
+
+// GDPR Data Requests
+model DataRequest {
+  id          String   @id @default(cuid())
+  type        String   // export, delete
+  status      String   @default("pending") // pending, processing, completed, failed
+  requestedAt DateTime @default(now())
+  completedAt DateTime?
+  
+  // User relation
+  userEmail String
+  
+  // Data
+  exportUrl String? // Temporary signed URL for download
+  
+  @@index([userEmail])
+  @@index([status])
+  @@map("data_requests")
+}

@@ -1,0 +1,21 @@
+# FlowCraft - Environment Variables für botchat-pro Supabase Projekt
+# Kopieren Sie diese Werte in Ihre .env.local Datei
+
+# ===== SUPABASE BOTCHAT-PRO PROJEKT =====
+SUPABASE_URL="https://ddavuntesnxtyikvmkje.supabase.co"
+SUPABASE_ANON_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRkYXZ1bnRlc254dHlpa3Zta2plIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY1NzgyODgsImV4cCI6MjA3MjE1NDI4OH0.BIY4-aQZOsodKF2Nbpg0byKLDolemR96SjoVEe3GMcs"
+
+# DIESE BENÖTIGEN SIE NOCH aus dem Supabase Dashboard:
+SUPABASE_SERVICE_ROLE_KEY="[SERVICE-ROLE-KEY aus Settings > API]"
+DATABASE_URL="postgresql://postgres:[IHR-PASSWORT]@db.ddavuntesnxtyikvmkje.supabase.co:5432/postgres"
+DIRECT_URL="postgresql://postgres:[IHR-PASSWORT]@db.ddavuntesnxtyikvmkje.supabase.co:5432/postgres"
+
+# ===== FÜR ENTWICKLUNG =====
+NEXTAUTH_URL="http://localhost:3000"
+NEXTAUTH_SECRET="development-secret-flowcraft-32-chars-minimum"
+NODE_ENV="development"
+
+# ===== PUBLIC KEYS (für Frontend) =====
+NEXT_PUBLIC_SUPABASE_URL="https://ddavuntesnxtyikvmkje.supabase.co"
+NEXT_PUBLIC_SUPABASE_ANON_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRkYXZ1bnRlc254dHlpa3Zta2plIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY1NzgyODgsImV4cCI6MjA3MjE1NDI4OH0.BIY4-aQZOsodKF2Nbpg0byKLDolemR96SjoVEe3GMcs"
+NEXT_PUBLIC_APP_URL="http://localhost:3000"

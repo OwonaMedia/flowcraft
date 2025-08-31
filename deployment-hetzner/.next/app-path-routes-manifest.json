@@ -1,0 +1,11 @@
+{
+  "/_not-found/page": "/_not-found",
+  "/api-fallback/route": "/api-fallback",
+  "/demo-static/page": "/demo-static",
+  "/demo/page": "/demo",
+  "/error/page": "/error",
+  "/favicon.ico/route": "/favicon.ico",
+  "/page": "/",
+  "/signin/page": "/signin",
+  "/signup/page": "/signup"
+}

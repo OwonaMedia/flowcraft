@@ -1,0 +1,18 @@
+set ssl:verify-certificate no
+set ftp:ssl-force true
+set ftp:ssl-protect-data true
+set net:timeout 120
+open owona.de
+user 163544f130388 Afidi2008!
+
+# Navigate to flowcraft directory
+cd htdocs/flowcraft
+
+# Upload _next directory structure
+lcd out
+mirror -R --verbose --only-newer _next/ _next/
+
+# List uploaded files
+ls -la _next/static/chunks/ | head -10
+
+quit

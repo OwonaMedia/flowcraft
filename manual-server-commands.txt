@@ -1,0 +1,39 @@
+# FLOWCRAFT MANUELLE SERVER-INSTALLATION
+# Diese Befehle direkt auf automat.owona.de ausführen
+
+# 1. SSH-Verbindung herstellen:
+ssh root@automat.owona.de
+# Passwort: LpXqTEPurwUu
+
+# 2. FlowCraft-Verzeichnis vorbereiten:
+cd /var/www
+mkdir -p flowcraft
+cd flowcraft
+
+# 3. Archive entpacken (falls noch nicht geschehen):
+tar -xzf ../flowcraft-hetzner.tar.gz
+
+# 4. Dependencies installieren:
+npm ci --production
+
+# 5. Prisma Setup:
+npx prisma generate
+npx prisma db push
+
+# 6. PM2 installieren (falls nötig):
+npm install -g pm2
+
+# 7. FlowCraft starten:
+pm2 start npm --name "flowcraft" -- start
+
+# 8. PM2 Autostart:
+pm2 startup
+pm2 save
+
+# 9. Status prüfen:
+pm2 status
+curl -I http://localhost:3000
+
+# 10. Nginx konfigurieren (falls vorhanden):
+# nano /etc/nginx/sites-available/flowcraft
+# SSL mit certbot --nginx -d owona.de

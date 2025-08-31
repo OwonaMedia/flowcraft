@@ -1,0 +1,22 @@
+{
+  "/_not-found/page": "app/_not-found/page.js",
+  "/api/analytics/route": "app/api/analytics/route.js",
+  "/api/auth/[...nextauth]/route": "app/api/auth/[...nextauth]/route.js",
+  "/api/bots/[id]/route": "app/api/bots/[id]/route.js",
+  "/api/bots/route": "app/api/bots/route.js",
+  "/api/stripe/checkout/route": "app/api/stripe/checkout/route.js",
+  "/api/stripe/webhooks/route": "app/api/stripe/webhooks/route.js",
+  "/api/webhooks/whatsapp/route": "app/api/webhooks/whatsapp/route.js",
+  "/dashboard/analytics/page": "app/dashboard/analytics/page.js",
+  "/dashboard/bots/[id]/edit/page": "app/dashboard/bots/[id]/edit/page.js",
+  "/dashboard/bots/new/page": "app/dashboard/bots/new/page.js",
+  "/dashboard/bots/page": "app/dashboard/bots/page.js",
+  "/dashboard/page": "app/dashboard/page.js",
+  "/dashboard/settings/page": "app/dashboard/settings/page.js",
+  "/demo/page": "app/demo/page.js",
+  "/error/page": "app/error/page.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/page": "app/page.js",
+  "/signin/page": "app/signin/page.js",
+  "/signup/page": "app/signup/page.js"
+}

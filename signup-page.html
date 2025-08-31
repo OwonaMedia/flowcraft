@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlowCraft Registrierung - Jetzt starten</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6; color: #1f2937; 
+            background: linear-gradient(135deg, #eff6ff 0%, #ffffff 50%, #fdf4ff 100%);
+            min-height: 100vh; display: flex; align-items: center; justify-content: center;
+        }
+        .container { 
+            max-width: 500px; margin: 0 auto; padding: 2rem; 
+            background: white; border-radius: 12px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .logo { 
+            display: flex; align-items: center; justify-content: center; gap: 0.5rem; 
+            margin-bottom: 2rem;
+        }
+        .logo-icon { 
+            width: 40px; height: 40px; background: #d97706; border-radius: 8px; 
+            display: flex; align-items: center; justify-content: center; 
+            color: white; font-size: 20px;
+        }
+        .logo-text { font-size: 1.5rem; font-weight: bold; color: #1f2937; }
+        h1 { font-size: 1.8rem; margin-bottom: 0.5rem; color: #1f2937; text-align: center; }
+        .subtitle { color: #6b7280; margin-bottom: 2rem; text-align: center; }
+        .form-group { margin-bottom: 1.5rem; }
+        label { display: block; margin-bottom: 0.5rem; font-weight: 500; color: #374151; }
+        input { 
+            width: 100%; padding: 0.75rem; border: 1px solid #d1d5db; border-radius: 6px;
+            font-size: 1rem; transition: border-color 0.2s;
+        }
+        input:focus { outline: none; border-color: #d97706; box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.1); }
+        .btn { 
+            width: 100%; padding: 0.75rem; border: none; border-radius: 6px; 
+            background: #d97706; color: white; font-size: 1rem; font-weight: 500;
+            cursor: pointer; transition: background 0.2s;
+        }
+        .btn:hover { background: #b45309; }
+        .divider { 
+            text-align: center; margin: 1.5rem 0; color: #9ca3af; 
+            position: relative;
+        }
+        .divider::before {
+            content: ''; position: absolute; top: 50%; left: 0; right: 0; height: 1px;
+            background: #e5e7eb;
+        }
+        .divider span { background: white; padding: 0 1rem; }
+        .google-btn {
+            background: white; color: #374151; border: 1px solid #d1d5db;
+            display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+        }
+        .google-btn:hover { background: #f9fafb; }
+        .terms { 
+            font-size: 0.875rem; color: #6b7280; text-align: center; 
+            margin-top: 1rem; line-height: 1.5;
+        }
+        .terms a { color: #d97706; text-decoration: none; }
+        .login-link { text-align: center; margin-top: 1.5rem; }
+        .login-link a { color: #d97706; text-decoration: none; }
+        .pricing-note {
+            background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 6px;
+            padding: 1rem; margin-bottom: 1.5rem; text-align: center;
+        }
+        .pricing-note h3 { color: #0c4a6e; margin-bottom: 0.5rem; }
+        .pricing-note p { color: #0369a1; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <div class="logo-icon">🔧</div>
+            <span class="logo-text">FlowCraft</span>
+        </div>
+        
+        <h1>Jetzt starten</h1>
+        <p class="subtitle">Erstellen Sie Ihren ersten WhatsApp-Workflow in wenigen Minuten</p>
+        
+        <div class="pricing-note">
+            <h3>🎉 Kostenlos starten</h3>
+            <p>14 Tage kostenlos testen • Keine Kreditkarte erforderlich</p>
+        </div>
+        
+        <form>
+            <div class="form-group">
+                <label for="name">Vollständiger Name</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">E-Mail-Adresse</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="company">Unternehmen (optional)</label>
+                <input type="text" id="company" name="company">
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Passwort</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            
+            <button type="submit" class="btn">🚀 FlowCraft-Account erstellen</button>
+        </form>
+        
+        <div class="divider">
+            <span>oder</span>
+        </div>
+        
+        <button class="btn google-btn">
+            <svg width="20" height="20" viewBox="0 0 24 24">
+                <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+            </svg>
+            Mit Google fortfahren
+        </button>
+        
+        <p class="terms">
+            Durch die Registrierung stimmen Sie unseren 
+            <a href="/flowcraft/terms/">AGB</a> und der 
+            <a href="/flowcraft/privacy/">Datenschutzerklärung</a> zu.
+        </p>
+        
+        <div class="login-link">
+            <p>Bereits ein Account? <a href="/flowcraft/signin/">Hier anmelden</a></p>
+        </div>
+        
+        <div class="login-link">
+            <a href="/flowcraft/">← Zurück zur Hauptseite</a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,3 @@
+module.exports=[93567,a=>{"use strict";a.s(["default",()=>d,"metadata",()=>c]);var b=a.i(25433);let c={title:"Anmeldung - BotChat Pro",description:"Melden Sie sich bei BotChat Pro an oder erstellen Sie ein neues Konto."};function d({children:a}){return(0,b.jsx)("div",{className:"min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4",children:(0,b.jsx)("div",{className:"w-full max-w-md",children:a})})}}];
+
+//# sourceMappingURL=botchat-pro_app_error_layout_tsx_de7d8dc1._.js.map

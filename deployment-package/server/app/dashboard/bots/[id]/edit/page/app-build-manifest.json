@@ -1,0 +1,21 @@
+{
+  "pages": {
+    "/dashboard/bots/[id]/edit/page": [
+      "static/chunks/53d2ff3ddd2e4e40.js",
+      "static/chunks/940493614e190115.js",
+      "static/chunks/896b54b8ee639526.css",
+      "static/chunks/9db621a332c62001.js",
+      "static/chunks/ada810109fc23aaf.js",
+      "static/chunks/b4786a4ade19bcc2.js",
+      "static/chunks/a36ce331d2d3671d.js",
+      "static/chunks/b2f0bc59fa1b6cb0.js",
+      "static/chunks/49eea33e0ece3608.css",
+      "static/chunks/728d36cb64e96e03.js",
+      "static/chunks/02f3e345bd9ff0a5.js",
+      "static/chunks/1a4839267417b0a7.js",
+      "static/chunks/b5186409f10fa6a8.js",
+      "static/chunks/53fbbcaf2f4e0621.js",
+      "static/chunks/turbopack-ba23c6d01372bcfc.js"
+    ]
+  }
+}

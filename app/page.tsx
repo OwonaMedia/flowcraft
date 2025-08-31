@@ -1,17 +1,9 @@
 "use client";
 
-import { useSession } from "next-auth/react";
-import { redirect } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Wrench, Zap, Shield, BarChart3, MessageSquare, Users } from "lucide-react";
 
 export default function HomePage() {
-  const { data: session, status } = useSession();
-
-  // Redirect authenticated users to dashboard
-  if (session) {
-    redirect("/dashboard");
-  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">

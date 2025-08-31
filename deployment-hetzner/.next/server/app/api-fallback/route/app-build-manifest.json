@@ -1,0 +1,11 @@
+{
+  "pages": {
+    "/api-fallback/route": [
+      "static/chunks/c96b247a63370fe8.js",
+      "static/chunks/0dc78c743cecdfcf.js",
+      "static/chunks/b5186409f10fa6a8.js",
+      "static/chunks/100bf3b63ca7aef9.js",
+      "static/chunks/turbopack-6ce0a14dde488e51.js"
+    ]
+  }
+}
