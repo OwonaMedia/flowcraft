@@ -26,7 +26,7 @@ export const authOptions: NextAuthOptions = {
     error: "/error",
   },
   session: {
-    strategy: "database",
+    strategy: "jwt", // Geändert zu JWT für bessere Production Performance
     maxAge: 30 * 24 * 60 * 60, // 30 days
     updateAge: 24 * 60 * 60, // 24 hours
   },
